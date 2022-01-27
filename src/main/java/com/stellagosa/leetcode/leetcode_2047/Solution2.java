@@ -15,73 +15,27 @@ public class Solution2 {
         int mode = 0;
         int count = 0;
         for (int i = 0; i < sentence.length(); i++) {
-            switch (check(sentence.charAt(i))) {
-                case 1: {
-                    switch (mode) {
-                        case 0:
-                        case 1:
-                        case 7: {
-                            mode = 1;
-                            break;
-                        }
-                        case 3:
-                        case 5:
-                        case 6: {
-                            mode = 6;
-                            break;
-                        }
-                        case 2:
-                        case 4: {
-                            mode = 4;
-                            break;
-                        }
-                    }
-                    break;
-                }
-                case 2: {
+            char ch = sentence.charAt(i);
+            if (ch >= 'a' && ch <= 'z') {
+                if (mode == 0 || mode == 1 || mode == 7) {
+                    mode = 1;
+                } else if (mode == 3 || mode == 5 || mode == 6) {
                     mode = 6;
-                    break;
+                } else {
+                    mode = 4;
                 }
-                case 3: {
-                    if (mode == 1) mode = 2;
-                    else mode = 6;
-                    break;
-                }
-                case 4: {
-                    switch (mode) {
-                        case 0:
-                        case 7: {
-                            mode = 5;
-                            break;
-                        }
-                        case 1:
-                        case 4: {
-                            mode = 3;
-                            break;
-                        }
-                        default: {
-                            mode = 6;
-                            break;
-                        }
-                    }
-                    break;
-                }
-                case 5: {
-                    switch (mode) {
-                        case 1:
-                        case 3:
-                        case 4:
-                        case 5: {
-                            mode = 7;
-                            break;
-                        }
-                        default: {
-                            mode = 0;
-                            break;
-                        }
-                    }
-                    break;
-                }
+            } else if (ch >= '0' && ch <= '9') {
+                mode = 6;
+            } else if (ch == '-') {
+                if (mode == 1) mode = 2;
+                else mode = 6;
+            } else if (ch == '.' || ch == ',' || ch == '!') {
+                if (mode == 0 || mode == 7) mode = 5;
+                else if (mode == 1 || mode == 4) mode = 3;
+                else mode = 6;
+            } else {
+                if (mode == 1 || mode == 3 || mode == 4 || mode == 5) mode = 7;
+                else mode = 0;
             }
             if (mode == 7) count++;
         }
@@ -89,13 +43,91 @@ public class Solution2 {
         return count;
     }
 
-    private int check(char ch) {
-        if (ch >= 'a' && ch <= 'z') return 1;
-        if (ch >= '0' && ch <= '9') return 2;
-        if (ch == '-') return 3;
-        if (ch == '!' || ch == '.' || ch == ',') return 4;
-        return 5;
-    }
+    // public int countValidWords(String sentence) {
+    //     int mode = 0;
+    //     int count = 0;
+    //     for (int i = 0; i < sentence.length(); i++) {
+    //         switch (check(sentence.charAt(i))) {
+    //             case 1: {
+    //                 switch (mode) {
+    //                     case 0:
+    //                     case 1:
+    //                     case 7: {
+    //                         mode = 1;
+    //                         break;
+    //                     }
+    //                     case 3:
+    //                     case 5:
+    //                     case 6: {
+    //                         mode = 6;
+    //                         break;
+    //                     }
+    //                     case 2:
+    //                     case 4: {
+    //                         mode = 4;
+    //                         break;
+    //                     }
+    //                 }
+    //                 break;
+    //             }
+    //             case 2: {
+    //                 mode = 6;
+    //                 break;
+    //             }
+    //             case 3: {
+    //                 if (mode == 1) mode = 2;
+    //                 else mode = 6;
+    //                 break;
+    //             }
+    //             case 4: {
+    //                 switch (mode) {
+    //                     case 0:
+    //                     case 7: {
+    //                         mode = 5;
+    //                         break;
+    //                     }
+    //                     case 1:
+    //                     case 4: {
+    //                         mode = 3;
+    //                         break;
+    //                     }
+    //                     default: {
+    //                         mode = 6;
+    //                         break;
+    //                     }
+    //                 }
+    //                 break;
+    //             }
+    //             case 5: {
+    //                 switch (mode) {
+    //                     case 1:
+    //                     case 3:
+    //                     case 4:
+    //                     case 5: {
+    //                         mode = 7;
+    //                         break;
+    //                     }
+    //                     default: {
+    //                         mode = 0;
+    //                         break;
+    //                     }
+    //                 }
+    //                 break;
+    //             }
+    //         }
+    //         if (mode == 7) count++;
+    //     }
+    //     if (mode == 1 || mode == 3 || mode == 4 || mode == 5) count++;
+    //     return count;
+    // }
+    //
+    // private int check(char ch) {
+    //     if (ch >= 'a' && ch <= 'z') return 1;
+    //     if (ch >= '0' && ch <= '9') return 2;
+    //     if (ch == '-') return 3;
+    //     if (ch == '!' || ch == '.' || ch == ',') return 4;
+    //     return 5;
+    // }
 }
 
 // 状态
