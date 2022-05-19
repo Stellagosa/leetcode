@@ -19,8 +19,7 @@ public class Solution {
 
     // 每次快排都可以确定一个元素的位置，只要找到倒数第k个就可以了
     public int findKthLargest(int[] nums, int k) {
-        quickSort(nums, 0, nums.length - 1, nums.length - k);
-        return nums[nums.length - k];
+        return quickSort(nums, 0, nums.length - 1, nums.length - k);
     }
 
     public int quickSort(int[] arr, int left, int right, int target) {
@@ -30,7 +29,7 @@ public class Solution {
             if (mid > target) return quickSort(arr, left, mid - 1, target);
             else return quickSort(arr, mid + 1, right, target);
         }
-        return 0;
+        return arr[left];
     }
 
     public int partition(int[] arr, int left, int right) {
