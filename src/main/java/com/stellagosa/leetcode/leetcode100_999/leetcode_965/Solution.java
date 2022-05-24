@@ -3,7 +3,7 @@ package com.stellagosa.leetcode.leetcode100_999.leetcode_965;
 /**
  * @Author: Stellagosa
  * @Date: 2022/5/24 21:39
- * @Description:
+ * @Description: 单值二叉树
  */
 public class Solution {
 
