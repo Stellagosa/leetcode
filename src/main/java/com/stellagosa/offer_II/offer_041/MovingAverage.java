@@ -12,28 +12,59 @@ public class MovingAverage {
 
     public static void main(String[] args) {
         MovingAverage o = new MovingAverage(3);
-        int[] arr = {1,10, 3, 5};
+        int[] arr = {1, 10, 3, 5};
         for (int num : arr) {
             System.out.println(o.next(num));
         }
     }
 
-    private final Queue<Integer> queue;
+    private final int[] arr;
+    private int last;
+    private int count;
     private final int size;
-    private double count;
+    private double sum;
 
     public MovingAverage(int size) {
-        this.queue = new LinkedList<>();
+        arr = new int[size];
         this.size = size;
+        this.last = -1;
         this.count = 0;
+        this.sum = 0;
     }
 
     public double next(int val) {
-        if (queue.size() == this.size) {
-            this.count -= queue.remove();
+        if (count == size) {
+            last = (last + 1) % size;
+            sum -= arr[last];
+            arr[last] = val;
+            sum += val;
+            return sum / size;
+        } else {
+            count++;
+            last++;
+            arr[last] = val;
+            sum += val;
+            return sum / (last + 1);
         }
-        this.queue.offer(val);
-        this.count += val;
-        return count / this.queue.size();
     }
+
+
+    // private final Queue<Integer> queue;
+    // private final int size;
+    // private double count;
+    //
+    // public MovingAverage(int size) {
+    //     this.queue = new LinkedList<>();
+    //     this.size = size;
+    //     this.count = 0;
+    // }
+    //
+    // public double next(int val) {
+    //     if (queue.size() == this.size) {
+    //         this.count -= queue.remove();
+    //     }
+    //     this.queue.offer(val);
+    //     this.count += val;
+    //     return count / this.queue.size();
+    // }
 }
