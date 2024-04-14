@@ -1,55 +1,14 @@
 package com.stellagosa.leetcode.leetcode100_999.leetcode_706;
 
 /**
- * @Author: Stellagosa
- * @Date: 2021/12/8 21:57
+ * @author Stellagosa
+ * @description 设计哈希映射
+ * @date 2021/12/8 21:57
+ * @update 2024/4/15 6:51 星期一
  */
 public class Solution2 {
-    class Node {
-        private int key;
-        private int value;
-        private Node child;
-        private Node parent;
 
-        public Node(int key, int value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        public int getKey() {
-            return key;
-        }
-
-        public void setKey(int key) {
-            this.key = key;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public void setValue(int value) {
-            this.value = value;
-        }
-
-        public Node getChild() {
-            return child;
-        }
-
-        public void setChild(Node child) {
-            this.child = child;
-        }
-
-        public Node getParent() {
-            return parent;
-        }
-
-        public void setParent(Node parent) {
-            this.parent = parent;
-        }
-    }
-
-    private Node[] elementData;
+    private final Node[] elementData;
     private final int length = 800; //数组长度
 
     public Solution2() {
@@ -113,5 +72,49 @@ public class Solution2 {
             if (p.getKey() == key) return p;
         }
         return null;
+    }
+
+    public static class Node {
+        private int key;
+        private int value;
+        private Node child;
+        private Node parent;
+
+        public Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public int getKey() {
+            return key;
+        }
+
+        public void setKey(int key) {
+            this.key = key;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+
+        public Node getChild() {
+            return child;
+        }
+
+        public void setChild(Node child) {
+            this.child = child;
+        }
+
+        public Node getParent() {
+            return parent;
+        }
+
+        public void setParent(Node parent) {
+            this.parent = parent;
+        }
     }
 }
