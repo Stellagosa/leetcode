@@ -19,48 +19,80 @@ public class Solution {
         int n = s.length();
         if (n < 2) return s;
 
-        // 表示[i,j]是不是回文字符串
-        boolean[][] flags = new boolean[n][n];
-
-        // 长度为1的字符串肯定是回文字符串
-        for (int i = 0; i < n; i++) {
-            flags[i][i] = true;
-        }
-
-        // 用来存放最长的回文字符串
-        // 先初始化成第一个回文字符串
-        int start = 0, max_len = 1;
-
         char[] chars = s.toCharArray();
 
-        // len 表示字符串长度
-        for (int len = 2; len <= n; len++) {
-            // i表示字符串的起始位置
-            for (int i = 0; i < n; i++) {
-                // 计算字符串结尾的位置
-                // [i,j] 左右闭区间
-                int j = i + len - 1;
-
-                // 结尾已经越界，后续可以不用考虑，结束此次循环
-                if (j >= n) break;
-
-                if (chars[i] != chars[j]) {
-                    flags[i][j] = false;
-                } else {
-                    if (len <= 3) {
-                        flags[i][j] = true;
-                    } else {
-                        flags[i][j] = flags[i + 1][j - 1];
-                    }
-                }
-                if (flags[i][j] && len > max_len) {
-                    max_len = len;
-                    start = i;
-                }
+        int max_start = 0, max_len = 1;
+        for (int i = 0; i < n; i++) {
+            int len1 = expandFromCenter(chars, i, i, n);
+            int len2 = expandFromCenter(chars, i, i + 1, n);
+            if (len1 > max_len) {
+                max_start = i - (len1 / 2);
+                max_len = len1;
+            }
+            if (len2 > max_len) {
+                max_start = i - (len2 / 2) + 1;
+                max_len = len2;
             }
         }
-        return s.substring(start, start + max_len);
+        return s.substring(max_start, max_start + max_len);
     }
+
+    // 从中心扩展，返回字符串长度
+    private int expandFromCenter(char[] chars, int l, int r, int n) {
+        while (l >= 0 && l < n && r >= 0 && r < n && chars[l] == chars[r]) {
+            l--;
+            r++;
+        }
+        return r - l - 1;
+    }
+
+
+    // public String longestPalindrome(String s) {
+    //     int n = s.length();
+    //     if (n < 2) return s;
+    //
+    //     // 表示[i,j]是不是回文字符串
+    //     boolean[][] flags = new boolean[n][n];
+    //
+    //     // 长度为1的字符串肯定是回文字符串
+    //     for (int i = 0; i < n; i++) {
+    //         flags[i][i] = true;
+    //     }
+    //
+    //     // 用来存放最长的回文字符串
+    //     // 先初始化成第一个回文字符串
+    //     int start = 0, max_len = 1;
+    //
+    //     char[] chars = s.toCharArray();
+    //
+    //     // len 表示字符串长度
+    //     for (int len = 2; len <= n; len++) {
+    //         // i表示字符串的起始位置
+    //         for (int i = 0; i < n; i++) {
+    //             // 计算字符串结尾的位置
+    //             // [i,j] 左右闭区间
+    //             int j = i + len - 1;
+    //
+    //             // 结尾已经越界，后续可以不用考虑，结束此次循环
+    //             if (j >= n) break;
+    //
+    //             if (chars[i] != chars[j]) {
+    //                 flags[i][j] = false;
+    //             } else {
+    //                 if (len <= 3) {
+    //                     flags[i][j] = true;
+    //                 } else {
+    //                     flags[i][j] = flags[i + 1][j - 1];
+    //                 }
+    //             }
+    //             if (flags[i][j] && len > max_len) {
+    //                 max_len = len;
+    //                 start = i;
+    //             }
+    //         }
+    //     }
+    //     return s.substring(start, start + max_len);
+    // }
 
 
     // public String longestPalindrome(String s) {
